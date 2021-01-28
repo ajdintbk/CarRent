@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{14C7F5FF-9679-41D5-88FA-71333FE4F514}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>CarRent.WinUI</RootNamespace>
+    <AssemblyName>CarRent.WinUI</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Flurl, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Flurl.3.0.1\lib\net461\Flurl.dll</HintPath>
+    </Reference>
+    <Reference Include="Flurl.Http, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Flurl.Http.3.0.1\lib\net461\Flurl.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.4.3.0\lib\net463\System.Runtime.InteropServices.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="APIService.cs" />
+    <Compile Include="Forms\frmHome.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmHome.Designer.cs">
+      <DependentUpon>frmHome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Rents\frmExtendRent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Rents\frmExtendRent.Designer.cs">
+      <DependentUpon>frmExtendRent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Rents\frmRentCar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Rents\frmRentCar.Designer.cs">
+      <DependentUpon>frmRentCar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Rents\frmRentDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Rents\frmRentDetails.Designer.cs">
+      <DependentUpon>frmRentDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Rents\frmRentsList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Rents\frmRentsList.Designer.cs">
+      <DependentUpon>frmRentsList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\User\frmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\User\frmLogin.Designer.cs">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\User\frmUserDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\User\frmUserDetails.Designer.cs">
+      <DependentUpon>frmUserDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\User\frmUserList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\User\frmUserList.Designer.cs">
+      <DependentUpon>frmUserList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\VehicleModel\frmAddVehicleModel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\VehicleModel\frmAddVehicleModel.Designer.cs">
+      <DependentUpon>frmAddVehicleModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Vehicles\frmAddVehicle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Vehicles\frmAddVehicle.Designer.cs">
+      <DependentUpon>frmAddVehicle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Vehicles\frmVehicleList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Vehicles\frmVehicleList.Designer.cs">
+      <DependentUpon>frmVehicleList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmIndex.Designer.cs">
+      <DependentUpon>frmIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\frmHome.resx">
+      <DependentUpon>frmHome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Rents\frmExtendRent.resx">
+      <DependentUpon>frmExtendRent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Rents\frmRentCar.resx">
+      <DependentUpon>frmRentCar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Rents\frmRentDetails.resx">
+      <DependentUpon>frmRentDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Rents\frmRentsList.resx">
+      <DependentUpon>frmRentsList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\User\frmLogin.resx">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\User\frmUserDetails.resx">
+      <DependentUpon>frmUserDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\User\frmUserList.resx">
+      <DependentUpon>frmUserList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\VehicleModel\frmAddVehicleModel.resx">
+      <DependentUpon>frmAddVehicleModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Vehicles\frmAddVehicle.resx">
+      <DependentUpon>frmAddVehicle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Vehicles\frmVehicleList.resx">
+      <DependentUpon>frmVehicleList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmIndex.resx">
+      <DependentUpon>frmIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CarRent.Model\CarRent.Model.csproj">
+      <Project>{5a74b7b1-a661-4f0d-a914-9580d5629f03}</Project>
+      <Name>CarRent.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+</Project>
