@@ -65,7 +65,7 @@ namespace CarRent.WinUI.Forms.Rents
                     lblAvailableStatus.Visible = true;
                     lblAvailableStatus.ForeColor = Color.Green;
                     lblAvailableStatus.Text = "Status: Available";
-                    var days = (dtpEnd.Value - dtpFrom.Value).Days;
+                    var days = (dtpEnd.Value - dtpFrom.Value).Days + 1;
                     lblTotalPrice.Text = "Total price is " + Math.Round((price * days), 2).ToString() + " BAM";
                     lblTotalPrice.Visible = true;
                     return true;
@@ -100,7 +100,7 @@ namespace CarRent.WinUI.Forms.Rents
             if (await ValidateRent())
             {
                 btnRent.Enabled = true;
-                var days = (dtpEnd.Value - dtpFrom.Value).Days;
+                var days = (dtpEnd.Value - dtpFrom.Value).Days + 1;
                 Model.Requests.Rent.RentInsert request = new Model.Requests.Rent.RentInsert()
                 {
                     DateCreated = DateTime.Now,
