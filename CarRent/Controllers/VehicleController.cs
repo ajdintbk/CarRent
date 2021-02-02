@@ -14,8 +14,16 @@ namespace CarRent.WebApi.Controllers
     [ApiController]
     public class VehicleController : BaseCRUDController<Model.Vehicle, VehicleSearchRequest, VehicleInsert, VehicleInsert>
     {
+        private readonly ICRUDService<Vehicle, VehicleSearchRequest, VehicleInsert, VehicleInsert> _service;
         public VehicleController(ICRUDService<Vehicle, VehicleSearchRequest, VehicleInsert, VehicleInsert> service) : base(service)
         {
+            _service = service;
+        }
+
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+            _service.Delete(id);
         }
 
     }

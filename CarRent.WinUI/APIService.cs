@@ -54,5 +54,28 @@ namespace CarRent.WinUI
 
             return await url.WithBasicAuth(username, password).PutJsonAsync(request).ReceiveJson<T>();
         }
+
+        public async Task Delete(object id)
+        {
+            try
+            {
+                var url = $"{Properties.Settings.Default.APIurl}/{_route}/{id}";
+
+                await url.WithBasicAuth(username, password).DeleteAsync();
+            }
+            catch (FlurlHttpException ex)
+            {
+                var errors = await ex.GetResponseJsonAsync<Dictionary<string, string[]>>();
+
+                var stringBuilder = new StringBuilder();
+                foreach (var error in errors)
+                {
+                    stringBuilder.AppendLine($"{error.Key}, ${string.Join(",", error.Value)}");
+                }
+
+                MessageBox.Show(stringBuilder.ToString(), "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
     }
 }

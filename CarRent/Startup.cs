@@ -78,6 +78,7 @@ namespace CarRent
             services.AddScoped<IRentService, RentService>();
             services.AddScoped<ICRUDService<Model.Review, Model.Requests.Review.ReviewSearchRequest, Model.Requests.Review.ReviewInsert, Model.Requests.Review.ReviewInsert>, ReviewService>();
             services.AddScoped<ICRUDService<Model.Role, Model.Requests.Role.RoleSearchRequest, Model.Requests.Role.RoleInsert, Model.Requests.Role.RoleInsert>, RoleService>();
+            services.AddScoped<ICRUDService<Model.Favorites, Model.Requests.Favorites.FavoritesSearchRequest, Model.Requests.Favorites.FavoritesInsert, Model.Requests.Favorites.FavoritesInsert>, FavoritesService>();
             services.AddScoped<ICRUDService<Model.VehicleModel, Model.Requests.VehicleModel.VehicleModelSearchRequest, Model.Requests.VehicleModel.VehicleModelInsert, Model.Requests.VehicleModel.VehicleModelInsert>, VehicleModelService>();
 
         }

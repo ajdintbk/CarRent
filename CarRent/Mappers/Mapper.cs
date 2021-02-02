@@ -44,6 +44,11 @@ namespace CarRent.WebApi.Mappers
 
             CreateMap<Database.Role, Model.Role>().ReverseMap();
             CreateMap<Database.Role, Model.Requests.Role.RoleSearchRequest>().ReverseMap();
+
+            CreateMap<Database.Favorites, Model.Favorites>().ReverseMap();
+            CreateMap<Database.Favorites, Model.Requests.Favorites.FavoritesInsert>().ReverseMap();
+            CreateMap<Database.Favorites, Model.Requests.Role.RoleSearchRequest>().ReverseMap();
+
         }
     }
 }

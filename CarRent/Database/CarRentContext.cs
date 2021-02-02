@@ -19,6 +19,7 @@ namespace CarRent.WebApi.Database
         }
 
         public DbSet<City> Cities { get; set; }
+        public DbSet<Favorites> Favorites { get; set; }
         public DbSet<Fuel> FuelTypes { get; set; }
         public DbSet<Brand> Manufacturers { get; set; }
         public DbSet<Message> Messages { get; set; }

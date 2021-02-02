@@ -4,14 +4,16 @@ using CarRent.WebApi.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarRent.WebApi.Migrations
 {
     [DbContext(typeof(CarRentContext))]
-    partial class CarRentContextModelSnapshot : ModelSnapshot
+    [Migration("20210129204837_rent-table-update")]
+    partial class renttableupdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,28 +99,6 @@ namespace CarRent.WebApi.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CarRent.WebApi.Database.Favorites", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VehicleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("VehicleId");
-
-                    b.ToTable("Favorites");
-                });
-
             modelBuilder.Entity("CarRent.WebApi.Database.Fuel", b =>
                 {
                     b.Property<int>("Id")
@@ -191,9 +171,6 @@ namespace CarRent.WebApi.Migrations
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsCanceled")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("IsReviewed")
                         .HasColumnType("bit");
@@ -337,8 +314,8 @@ namespace CarRent.WebApi.Migrations
                             Email = "tabakajdin@gmail.com",
                             FirstName = "Ajdin",
                             LastName = "Tabak",
-                            PasswordHash = "UwuEi6bsIjMVL4fsdXLoSm4NAGg=",
-                            PasswordSalt = "Aj5wjU2N+//2BzFn0NmAhA==",
+                            PasswordHash = "AAchj/WYK5CnMoau4JUrjTTqScc=",
+                            PasswordSalt = "3KHc3bYPlCC9QabLVjwBKw==",
                             Phone = "062234124",
                             RoleId = 0,
                             Username = "ajdintbk"
@@ -470,21 +447,6 @@ namespace CarRent.WebApi.Migrations
                             Id = 4,
                             Name = "Sports Car"
                         });
-                });
-
-            modelBuilder.Entity("CarRent.WebApi.Database.Favorites", b =>
-                {
-                    b.HasOne("CarRent.WebApi.Database.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CarRent.WebApi.Database.Vehicle", "Vehicle")
-                        .WithMany()
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("CarRent.WebApi.Database.Message", b =>

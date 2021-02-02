@@ -60,22 +60,22 @@ namespace CarRent.WebApi.Services
             var query = _context.Users.Include(x=>x.Role).AsQueryable();
             if (!string.IsNullOrWhiteSpace(request.FirstName))
             {
-                query = query.Where(x => x.FirstName.StartsWith(request.FirstName));
+                query = query.Where(x => x.FirstName.Contains(request.FirstName));
             }
 
             if (!string.IsNullOrWhiteSpace(request.LastName))
             {
-                query = query.Where(x => x.LastName.StartsWith(request.LastName));
+                query = query.Where(x => x.LastName.Contains(request.LastName));
             }
 
             if (!string.IsNullOrWhiteSpace(request.Phone))
             {
-                query = query.Where(x => x.Phone.StartsWith(request.Phone));
+                query = query.Where(x => x.Phone.Contains(request.Phone));
             }
 
             if (!string.IsNullOrWhiteSpace(request.Email))
             {
-                query = query.Where(x => x.Email.StartsWith(request.Email));
+                query = query.Where(x => x.Email.Contains(request.Email));
             }
 
             if (!string.IsNullOrWhiteSpace(request.Username))

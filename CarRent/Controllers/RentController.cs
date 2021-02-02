@@ -21,7 +21,7 @@ namespace CarRent.WebApi.Controllers
             _service = service;
         }
 
-       
+        
         [HttpPost]
         public ActionResult<Model.Rent> Insert(RentInsert request)
         {
@@ -33,7 +33,7 @@ namespace CarRent.WebApi.Controllers
             return rent;
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpGet]
         public ActionResult<List<Model.Rent>> Get([FromQuery] RentSearchRequest request)
         {
@@ -61,6 +61,22 @@ namespace CarRent.WebApi.Controllers
         public ActionResult<List<Model.Rent>> CheckAvailability([FromQuery] RentSearchRequest request)
         {
             var rent = _service.CheckAvailability(request);
+
+            return rent;
+        }
+
+        [HttpGet("futurerents/{id}")]
+        public ActionResult<List<Model.Rent>> FutureRents(int id)
+        {
+            var rent = _service.FutureRents(id);
+
+            return rent;
+        }
+
+        [HttpPatch("cancelreservation/{id}")]
+        public ActionResult<Model.Rent> Cancel(int id)
+        {
+            var rent = _service.Cancel(id);
 
             return rent;
         }

@@ -14,7 +14,8 @@ namespace CarRent.Model.Requests.Rent
         public string UserLastName { get; set; }
         public int VehicleId { get; set; }
         public string VehicleName { get; set; }
-        public bool? IsPayed { get; set; }
+        public bool? IsReviewed { get; set; }
+        public bool? IsCanceled { get; set; }
         public bool UserRentCount { get; set; }
     }
 }

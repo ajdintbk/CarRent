@@ -27,6 +27,7 @@ namespace CarRent.WebApi.Controllers
             return _service.Get(request);
         }
 
+        [Authorize(Roles = "Administrator, User")]
         [HttpGet("{id}")]
         public ActionResult<User> GetById(int id)
         {

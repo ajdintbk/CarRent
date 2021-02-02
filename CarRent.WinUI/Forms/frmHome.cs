@@ -1,4 +1,5 @@
-﻿using CarRent.WinUI.Forms.Rents;
+﻿using CarRent.WinUI.Forms.Favorites;
+using CarRent.WinUI.Forms.Rents;
 using CarRent.WinUI.Forms.User;
 using CarRent.WinUI.Forms.Vehicles;
 using System;
@@ -47,9 +48,33 @@ namespace CarRent.WinUI.Forms
             frmRents.Show();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void btnMyProfile_Click(object sender, EventArgs e)
         {
+            frmUserDetails frmUser = new frmUserDetails(APIService.loggedUser.Id);
+            frmUser.TopLevel = false;
+            frmUser.FormBorderStyle = FormBorderStyle.None;
+            pnlContent.Controls.Clear();
+            pnlContent.Controls.Add(frmUser);
+            frmUser.Show();
+        }
 
+        private void frmHome_Load(object sender, EventArgs e)
+        {
+            if(APIService.loggedUser.RoleId == 2)
+            {
+                btnRents.Visible = false;
+                btnUsers.Visible = false;
+            }
+        }
+
+        private void btnFavorites_Click(object sender, EventArgs e)
+        {
+            frmFavoriteList frmFavorites = new frmFavoriteList();
+            frmFavorites.TopLevel = false;
+            frmFavorites.FormBorderStyle = FormBorderStyle.None;
+            pnlContent.Controls.Clear();
+            pnlContent.Controls.Add(frmFavorites);
+            frmFavorites.Show();
         }
     }
 }

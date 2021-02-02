@@ -11,8 +11,10 @@ namespace CarRent.WebApi.Interfaces
         Model.Rent Insert(RentInsert request);
         Model.Rent Update(int id, RentInsert reqest);
         List<Model.Rent> Get(RentSearchRequest search);
+        List<Model.Rent> FutureRents(int id);
         List<Model.Rent> CheckAvailability(RentSearchRequest search);
         Model.Rent GetById(int id);
+        Model.Rent Cancel(int id);
         Model.Rent Delete(int id);
     }
 }

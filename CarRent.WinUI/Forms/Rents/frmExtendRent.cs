@@ -58,7 +58,7 @@ namespace CarRent.WinUI.Forms.Rents
                     {
                         DateCreated = rent.DateCreated,
                         EndDate = rent.EndDate.AddDays(days),
-                        IsPayed = rent.IsPayed,
+                        IsReviewed = rent.IsReviewed,
                         StartDate = rent.StartDate,
                         UserId = rent.UserId,
                         VehicleId = rent.VehicleId,

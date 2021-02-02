@@ -15,7 +15,6 @@ namespace CarRent.Model.ViewModel
         public int NumberOfSeats { get; set; }
         public bool IsActive { get; set; }
         public string Fuel { get; set; }
-        public string VehicleType { get; set; }
         public string Brand { get; set; }
         public string VehicleModel { get; set; }
     }

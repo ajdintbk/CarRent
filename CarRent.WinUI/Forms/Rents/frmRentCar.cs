@@ -40,7 +40,7 @@ namespace CarRent.WinUI.Forms.Rents
 
         private async Task<bool> ValidateRent()
         {
-            if (dtpEnd.Value <= dtpFrom.Value)
+            if (dtpEnd.Value.Date <= dtpFrom.Value.Date)
             {
                 err.SetError(dtpEnd, "End date can not be in past or same as start day.");
                 return false;
@@ -51,6 +51,7 @@ namespace CarRent.WinUI.Forms.Rents
             }
             else
             {
+                lblInfo.Visible = false;
                 err.Clear();
                 var request = new Model.Requests.Rent.RentSearchRequest()
                 {
@@ -64,7 +65,7 @@ namespace CarRent.WinUI.Forms.Rents
                     lblNextTime.Visible = false;
                     lblAvailableStatus.Visible = true;
                     lblAvailableStatus.ForeColor = Color.Green;
-                    lblAvailableStatus.Text = "Status: Available";
+                    lblAvailableStatus.Text = "Available";
                     var days = (dtpEnd.Value - dtpFrom.Value).Days + 1;
                     lblTotalPrice.Text = "Total price is " + Math.Round((price * days), 2).ToString() + " BAM";
                     lblTotalPrice.Visible = true;
@@ -79,10 +80,10 @@ namespace CarRent.WinUI.Forms.Rents
                             next = rent[i + 1].EndDate;
                     }
                     lblNextTime.Visible = true;
-                    lblNextTime.Text = "Next date available after: " + next.Date.ToString().Substring(0, 9);
+                    lblNextTime.Text = "Available after: " + next.Date.ToString().Substring(0, 9);
                     lblAvailableStatus.Visible = true;
                     lblAvailableStatus.ForeColor = Color.Red;
-                    lblAvailableStatus.Text = "Status: Unavailable";
+                    lblAvailableStatus.Text = "Unavailable";
                     return false;
                 }
             }
@@ -105,7 +106,7 @@ namespace CarRent.WinUI.Forms.Rents
                 {
                     DateCreated = DateTime.Now,
                     EndDate = dtpEnd.Value,
-                    IsPayed = false,
+                    IsReviewed = false,
                     StartDate = dtpFrom.Value,
                     TotalPrice = Math.Round((price * days), 2),
                     UserId = APIService.loggedUser.Id,
@@ -114,7 +115,7 @@ namespace CarRent.WinUI.Forms.Rents
 
                 try
                 {
-                    var result = _serviceAddRent.Insert<Model.Rent>(request);
+                    var result = await _serviceAddRent.Insert<Model.Rent>(request);
                     if(result != null)
                     {
                         MessageBox.Show("Vehicle successfully rented!", "Status", MessageBoxButtons.OK,MessageBoxIcon.Information);

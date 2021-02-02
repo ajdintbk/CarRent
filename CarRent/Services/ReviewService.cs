@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CarRent.Model.Requests.Review;
 using CarRent.WebApi.Database;
+using CarRent.WebApi.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -69,10 +70,13 @@ namespace CarRent.WebApi.Services
             return _mapper.Map<List<Model.Review>>(query);
         }
 
+
         public override Model.Review GetByID(int id)
         {
             var query = _context.Reviews.Include(i => i.User).Include(i => i.Vehicle).FirstOrDefault(w=>w.Id == id);
             return _mapper.Map<Model.Review>(query);
         }
+
+       
     }
 }

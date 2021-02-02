@@ -16,6 +16,7 @@ namespace CarRent.WebApi.Database
         public Vehicle Vehicle { get; set; }
         public DateTime DateCreated { get; set; }
         public double TotalPrice { get; set; }
-        public bool IsPayed { get; set; }
+        public bool IsReviewed { get; set; }
+        public bool IsCanceled { get; set; }
     }
 }

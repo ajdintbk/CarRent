@@ -9,10 +9,11 @@ namespace CarRent.Model.Requests.Rent
     {
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public int UserId { get; set; }
-        public int VehicleId { get; set; }
+        public int? UserId { get; set; }
+        public int? VehicleId { get; set; }
         public DateTime DateCreated { get; set; }
         public double TotalPrice { get; set; }
-        public bool IsPayed { get; set; }
+        public bool IsReviewed { get; set; }
+        public bool IsCanceled { get; set; }
     }
 }

@@ -47,7 +47,7 @@ namespace CarRent.WinUI.Forms.Rents
 
                 dtpFrom.Value = rentDetails.StartDate;
                 dtpTo.Value = rentDetails.EndDate;
-                chbPayed.Checked = rentDetails.IsPayed;
+                chbPayed.Checked = rentDetails.IsReviewed;
 
                 if(rentDetails.Vehicle.Image.Length > 0)
                     pictureBox1.Image = GetImage(rentDetails.Vehicle.Image);
@@ -55,6 +55,10 @@ namespace CarRent.WinUI.Forms.Rents
                 if (DateTime.Now < rentDetails.EndDate)
                 {
                     lblStatus.Text = "Status: Still reserved";
+                    lblStatus.ForeColor = Color.Red;
+                }else if (rentDetails.IsCanceled)
+                {
+                    lblStatus.Text = "Status: Canceled";
                     lblStatus.ForeColor = Color.Red;
                 }
                 else

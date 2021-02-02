@@ -42,7 +42,7 @@ namespace CarRent.WinUI.Forms.User
                         Password = txtPassword.Text
                     };
                     var url = $"{Properties.Settings.Default.APIurl}/User/Login";
-                    var response = await url.PostJsonAsync(request).ReceiveJson<Model.User>();
+                    var response = await url.PostJsonAsync(request);
                     var findUser = new Model.Requests.User.UserSearchRequest()
                     {
                         Username = txtUsername.Text
@@ -53,9 +53,11 @@ namespace CarRent.WinUI.Forms.User
                         APIService.loggedUser = user[0];
                     }
 
-                    frmHome frm = new frmHome();
-                    frm.Show();
+                    MessageBox.Show($"Welcome {user[0].Username}", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Hide();
+                    frmHome home = new frmHome();
+                    home.Closed += (s, args) => this.Close();
+                    home.Show();
                 }
             }
             catch (Exception err)

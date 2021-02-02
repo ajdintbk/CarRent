@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CarRent.WebApi.Interfaces;
+using CarRent.WebApi.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,5 +17,6 @@ namespace CarRent.WebApi.Controllers
         public ReviewController(ICRUDService<Model.Review, Model.Requests.Review.ReviewSearchRequest, Model.Requests.Review.ReviewInsert, Model.Requests.Review.ReviewInsert> service) : base(service)
         {
         }
+
     }
 }

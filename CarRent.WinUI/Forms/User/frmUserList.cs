@@ -14,18 +14,27 @@ namespace CarRent.WinUI.Forms.User
     {
         private readonly APIService _userService = new APIService("User");
         private readonly APIService _rentService = new APIService("Rent");
+        
         public frmUserList()
         {
             InitializeComponent();
         }
-        private async Task GetData()
+        private async Task GetData(List<Model.User> users = null)
         {
+            
+
+            List<Model.User> list;
+
             if (dgvUserList.Columns.Contains("btnDetails"))
                 dgvUserList.Columns.Remove("btnDetails");
 
-            var list = await _userService.Get<List<Model.User>>();
-            var gridList = new List<Model.ViewModel.UserListVM>();
+            if (users == null)
+                list = await _userService.Get<List<Model.User>>();
+            else
+                list = users;
 
+            var gridList = new List<Model.ViewModel.UserListVM>();
+            int activeNumber = 0;
             foreach (var item in list)
             {
                 var request = new Model.Requests.Rent.RentSearchRequest()
@@ -33,6 +42,11 @@ namespace CarRent.WinUI.Forms.User
                     UserId = item.Id,
                     UserRentCount = true
                 };
+
+                if (item.Active)
+                {
+                    activeNumber++;
+                }
                 var number = await _rentService.Get<List<Model.Rent>>(request);
 
                 var gridItem = new Model.ViewModel.UserListVM()
@@ -44,14 +58,14 @@ namespace CarRent.WinUI.Forms.User
                     Status = (item.Active == true ? "Active" : "Disabled"),
                     UserId = item.Id
                 };
+                
+                    gridList.Add(gridItem);
 
-                gridList.Add(gridItem);
             }
             DataGridViewButtonColumn bcol = new DataGridViewButtonColumn();
             bcol.HeaderText = "Action";
             bcol.Text = "Details";
             bcol.Name = "btnDetails";
-
 
             dgvUserList.DataSource = gridList;
             dgvUserList.Columns[0].Visible = false;
@@ -59,6 +73,9 @@ namespace CarRent.WinUI.Forms.User
             bcol.UseColumnTextForButtonValue = true;
             if (!dgvUserList.Columns.Contains("btnDetails"))
                 dgvUserList.Columns.Add(bcol);
+
+            lblActive.Text = "Active users: " + activeNumber.ToString();
+            lblNumberOfRows.Text = "Number of rows: " + list.Count.ToString();
 
 
         }
@@ -85,6 +102,31 @@ namespace CarRent.WinUI.Forms.User
                 }
             }
             }
+        }
+
+        private async void btnSearch_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtSearchName.Text))
+            {
+                var request = new Model.Requests.User.UserSearchRequest()
+                {
+                    FirstName = txtSearchName.Text,
+                };
+                await GetData(await _userService.Get<List<Model.User>>(request));
+            }
+
+        }
+
+        private async void txtSearchName_TextChanged(object sender, EventArgs e)
+        {
+            if(string.IsNullOrWhiteSpace(txtSearchName.Text))
+                await GetData();
+        }
+
+        private void btnAddUser_Click(object sender, EventArgs e)
+        {
+            frmUserDetails frmUd = new frmUserDetails();
+            frmUd.ShowDialog();
         }
     }
 }

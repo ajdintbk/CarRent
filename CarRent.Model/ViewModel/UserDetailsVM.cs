@@ -6,6 +6,7 @@ namespace CarRent.Model.ViewModel
 {
     public class UserDetailsVM
     {
+        public int RentId { get; set; }
         public string VehicleName { get; set; }
         public string fromDate { get; set; }
         public string ToDate { get; set; }

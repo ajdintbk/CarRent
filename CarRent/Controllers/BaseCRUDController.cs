@@ -20,7 +20,6 @@ namespace CarRent.WebApi.Controllers
             _service = service;
         }
 
-        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public TModel Insert(TInsert request)
         {

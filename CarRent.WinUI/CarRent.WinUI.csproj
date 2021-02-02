@@ -70,11 +70,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIService.cs" />
+    <Compile Include="Forms\Favorites\frmFavoriteList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Favorites\frmFavoriteList.Designer.cs">
+      <DependentUpon>frmFavoriteList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmHome.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmHome.Designer.cs">
       <DependentUpon>frmHome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Rents\frmAddReview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Rents\frmAddReview.Designer.cs">
+      <DependentUpon>frmAddReview.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Rents\frmExtendRent.cs">
       <SubType>Form</SubType>
@@ -144,8 +156,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\Favorites\frmFavoriteList.resx">
+      <DependentUpon>frmFavoriteList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmHome.resx">
       <DependentUpon>frmHome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Rents\frmAddReview.resx">
+      <DependentUpon>frmAddReview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Rents\frmExtendRent.resx">
       <DependentUpon>frmExtendRent.cs</DependentUpon>

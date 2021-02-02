@@ -22,7 +22,7 @@ namespace CarRent.WinUI.Forms.Vehicles
             InitializeComponent();
         }
 
-        private async Task GetData()
+        public async Task GetData()
         {
             
             dgvVehicleList.DataSource = null;
@@ -66,7 +66,6 @@ namespace CarRent.WinUI.Forms.Vehicles
                     Name = item.Name,
                     Price = item.Price.ToString() + "KM",
                     VehicleModel = item.VehicleModel.Name,
-                    VehicleType = item.VehicleType.Name,
                     NumberOfSeats = item.NumberOfSeats,
                     Description = item.Description,
                     YearManufactured = item.YearManufactured,
@@ -135,12 +134,12 @@ namespace CarRent.WinUI.Forms.Vehicles
             if(e.RowIndex >= 0)
             {
 
-            if (e.ColumnIndex == 12)
+            if (e.ColumnIndex == 11)
             {
                 int result = int.Parse(dgvVehicleList.Rows[e.RowIndex].Cells[0].Value.ToString());
                 if (result != 0)
                 {
-                    frmAddVehicle frmAdd = new frmAddVehicle(result);
+                    frmAddVehicle frmAdd = new frmAddVehicle(result,this);
                     frmAdd.ShowDialog();
                 }
             }

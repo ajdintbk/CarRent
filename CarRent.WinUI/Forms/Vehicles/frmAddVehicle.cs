@@ -19,17 +19,23 @@ namespace CarRent.WinUI.Forms.Vehicles
         protected APIService _serviceVehicleModel= new APIService("VehicleModel");
         protected APIService _serviceBrand = new APIService("Brand");
         protected APIService _serviceVehicle = new APIService("Vehicle");
+        protected APIService _reviewVehicle = new APIService("Review");
+        protected APIService _favVehicle = new APIService("Favorites");
+
         protected readonly int EditId = 0;
+        readonly frmVehicleList _parentDgv;
         protected Model.Vehicle editVehicle = new Model.Vehicle();
+        protected List<Model.Favorites> favResult = new List<Model.Favorites>();
 
         public frmAddVehicle()
         {
             InitializeComponent();
         }
 
-        public frmAddVehicle(int id) : this()
+        public frmAddVehicle(int id, frmVehicleList parentFrm) : this()
         {
             this.EditId = id;
+            _parentDgv = parentFrm;
         }
 
         private async Task GetFuel()
@@ -132,17 +138,37 @@ namespace CarRent.WinUI.Forms.Vehicles
                 MessageBox.Show(ex.ToString());
             }
         }
+
+        private async void FavoriteCheck()
+        {
+            var favReq = new Model.Requests.Favorites.FavoritesSearchRequest()
+            {
+                UserId = APIService.loggedUser.Id,
+                VehicleId = EditId
+            };
+            favResult = await _favVehicle.Get<List<Model.Favorites>>(favReq);
+            if (favResult.Count > 0)
+                btnFavorites.Text = "Remove from favorites";
+        }
         private async void frmAddVehicle_Load(object sender, EventArgs e)
         {
-            if(APIService.loggedUser.RoleId == 2)
+            btnDelete.Visible = false;
+            if (APIService.loggedUser.RoleId == 2)
             {
-                LockControlValues(this);
-                btnImage.Visible = false;
-                btnSave.Text = "Rent";
+                btnDelete.Visible = false;
+                if(editVehicle != null)
+                {
+                    LockControlValues(this);
+                    btnImage.Visible = false;
+                    btnSave.Text = "Rent";
+                    btnAddModel.Visible = false;
+                }
             }
             pictureBox1.Image = null;
             if(EditId != 0)
             {
+                if(APIService.loggedUser.RoleId == 1)
+                    btnDelete.Visible = true;
                 editVehicle = await _serviceVehicle.GetById<Model.Vehicle>(EditId);
                 txtName.Text = editVehicle.Name;
                 txtPrice.Text = editVehicle.Price.ToString();
@@ -161,15 +187,47 @@ namespace CarRent.WinUI.Forms.Vehicles
                 cmbFuel.SelectedIndex = editVehicle.Fuel.Id;
                 cmbModel.SelectedIndex = editVehicle.VehicleModel.Id;
                 cmbBrand.SelectedIndex = editVehicle.Brand.Id;
-                
-                if(editVehicle.Transmission.StartsWith("Automatic"))
+
+                var reviewsRequest = new Model.Requests.Review.ReviewSearchRequest()
+                {
+                    VehicleId = EditId
+                };
+
+                var reviewList = await _reviewVehicle.Get<List<Model.Review>>(reviewsRequest);
+                var dgvList = new List<Model.ViewModel.ReviewListVM>();
+                foreach (var item in reviewList)
+                {
+                    Model.ViewModel.ReviewListVM vm = new Model.ViewModel.ReviewListVM()
+                    {
+                        Comment = item.Comment,
+                        DatePosted = item.DatePosted.ToString(),
+                        NumberOfStars = item.NumberOfStars.ToString(),
+                        Username = item.User.Username
+                    };
+                    dgvList.Add(vm);
+                }
+                dgvReviews.DataSource = dgvList;
+                dgvReviews.Columns[1].HeaderText = "Rating";
+                dgvReviews.Columns[3].HeaderText = "Date commented";
+
+                if(dgvList.Count > 0)
+                {
+                    lblNoReviews.Text = "Number of reviews: " + reviewList.Count.ToString();
+                    lblAverageScore.Text = "Score " + Math.Round(reviewList.Average(x => x.NumberOfStars),2).ToString();
+                }
+
+                if (editVehicle.Transmission.StartsWith("Automatic"))
                     cbTransmission.SelectedIndex = 1;
                 else if (editVehicle.Transmission.StartsWith("Manual"))
                     cbTransmission.SelectedIndex = 2;
                 else cbTransmission.SelectedIndex = 0;
+
+                
+                FavoriteCheck();
             }
             else
             {
+                btnFavorites.Visible = false;
                 await GetFuel();
                 await GetBrand();
                 await GetModel();
@@ -202,10 +260,9 @@ namespace CarRent.WinUI.Forms.Vehicles
                     MessageBox.Show("Can not rent vehicle that is not active.", "Status", MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 }
                 else
-                {
-
-                frmRentCar frm = new frmRentCar(editVehicle.Id,editVehicle.Price);
-                frm.ShowDialog();
+                { 
+                    frmRentCar frm = new frmRentCar(editVehicle.Id,editVehicle.Price);
+                    frm.ShowDialog();
                 }
             }
             else
@@ -240,6 +297,8 @@ namespace CarRent.WinUI.Forms.Vehicles
                         this.Close();
                     }
                     }
+                    await _parentDgv.GetData();
+
                 }
                 catch (Exception ex)
                 {
@@ -285,6 +344,58 @@ namespace CarRent.WinUI.Forms.Vehicles
                 await GetModel();
             };
             frmModel.ShowDialog();
+        }
+
+        private async void btnFavorites_Click(object sender, EventArgs e)
+        {
+            
+            if (favResult.Count > 0)
+            {
+                try
+                {
+                        await _favVehicle.Delete(favResult[0].Id);
+                        MessageBox.Show("Successfully removed from favorites", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        btnFavorites.Text = "Add to favorites";
+                }
+                catch (Exception exce)
+                {
+                        MessageBox.Show(exce.Message);
+
+                }
+            }
+            else
+            {
+                var request = new Model.Requests.Favorites.FavoritesInsert()
+                {
+                    UserId = APIService.loggedUser.Id,
+                    VehicleId = EditId
+                };
+                try
+                {
+                    var result = await _favVehicle.Insert<Model.Favorites>(request);
+                    if (result != null)
+                    {
+                        MessageBox.Show("Vehicle added to favorites", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show(exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            FavoriteCheck();
+        }
+
+        private async void btnDelete_Click(object sender, EventArgs e)
+        {
+            var msg = MessageBox.Show("Are you sure?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if(msg == DialogResult.Yes)
+            {
+                await _serviceVehicle.Delete(EditId);
+                MessageBox.Show("Car succesfully deleted.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                await _parentDgv.GetData();
+                Close();
+            }
         }
     }
     }
