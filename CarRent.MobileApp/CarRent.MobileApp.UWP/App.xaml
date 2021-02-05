@@ -1,0 +1,8 @@
+﻿<Application
+    x:Class="CarRent.MobileApp.UWP.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CarRent.MobileApp.UWP"
+    RequestedTheme="Light">
+
+</Application>

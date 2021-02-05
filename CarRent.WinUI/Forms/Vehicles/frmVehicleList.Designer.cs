@@ -150,6 +150,7 @@
             this.cbBrand.Name = "cbBrand";
             this.cbBrand.Size = new System.Drawing.Size(139, 21);
             this.cbBrand.TabIndex = 7;
+            this.cbBrand.SelectedIndexChanged += new System.EventHandler(this.cbBrand_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -172,6 +173,7 @@
             this.Controls.Add(this.dgvVehicleList);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmVehicleList";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmVehicleList";
             this.Load += new System.EventHandler(this.frmVehicleList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvVehicleList)).EndInit();

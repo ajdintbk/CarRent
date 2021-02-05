@@ -23,7 +23,6 @@ namespace CarRent.WinUI.Forms.Vehicles
         protected APIService _favVehicle = new APIService("Favorites");
 
         protected readonly int EditId = 0;
-        readonly frmVehicleList _parentDgv;
         protected Model.Vehicle editVehicle = new Model.Vehicle();
         protected List<Model.Favorites> favResult = new List<Model.Favorites>();
 
@@ -32,10 +31,9 @@ namespace CarRent.WinUI.Forms.Vehicles
             InitializeComponent();
         }
 
-        public frmAddVehicle(int id, frmVehicleList parentFrm) : this()
+        public frmAddVehicle(int id) : this()
         {
             this.EditId = id;
-            _parentDgv = parentFrm;
         }
 
         private async Task GetFuel()
@@ -169,7 +167,16 @@ namespace CarRent.WinUI.Forms.Vehicles
             {
                 if(APIService.loggedUser.RoleId == 1)
                     btnDelete.Visible = true;
-                editVehicle = await _serviceVehicle.GetById<Model.Vehicle>(EditId);
+                try
+                {
+                    editVehicle = await _serviceVehicle.GetById<Model.Vehicle>(EditId);
+
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Vehicle could not be found", "Status", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    throw;
+                }
                 txtName.Text = editVehicle.Name;
                 txtPrice.Text = editVehicle.Price.ToString();
                 txtSeats.Text = editVehicle.NumberOfSeats.ToString();
@@ -251,6 +258,13 @@ namespace CarRent.WinUI.Forms.Vehicles
             err.Clear();
             return true;
         }
+
+        private bool StringToInt(string value)
+        {
+            int number;
+            bool response = int.TryParse(value, out number);
+            return response;
+        }
         private async void btnSave_Click(object sender, EventArgs e)
         {
             if(APIService.loggedUser.RoleId == 2)
@@ -269,35 +283,57 @@ namespace CarRent.WinUI.Forms.Vehicles
             {
                 try
                 {
-                    if (Validate(txtName) && Validate(txtPrice) && Validate(cmbFuel) && Validate(cmbBrand) && Validate(cmbModel))
+                    if (Validate(txtName) && Validate(txtPrice) && Validate(cmbFuel) && Validate(cmbBrand) && Validate(cmbModel) && cbTransmission.SelectedIndex>0)
                     {
-                        request.Description = rtxtDesc.Text;
-                        request.NumberOfSeats = int.Parse(txtSeats.Text);
-                        request.YearManufactured = int.Parse(txtYear.Text);
-                        request.Name = txtName.Text;
-                        request.BrandId = int.Parse(cmbBrand.SelectedValue.ToString());
-                        request.FuelId = int.Parse(cmbFuel.SelectedValue.ToString());
-                        request.IsActive = cbActive.Checked;
-                        request.VehicleModelId = int.Parse(cmbModel.SelectedValue.ToString());
-                        request.VehicleTypeId = 1;
-                        request.Price = int.Parse(txtPrice.Text);
-                        request.Transmission = cbTransmission.SelectedValue.ToString();
+                        if(StringToInt(txtYear.Text.ToString()) && StringToInt(txtSeats.Text.ToString()) && StringToInt(txtPrice.Text.ToString()))
+                        {
+                            request.Description = rtxtDesc.Text;
+                            request.NumberOfSeats = int.Parse(txtSeats.Text);
+                            request.YearManufactured = int.Parse(txtYear.Text);
+                            request.Name = txtName.Text;
+                            request.BrandId = int.Parse(cmbBrand.SelectedValue.ToString());
+                            request.FuelId = int.Parse(cmbFuel.SelectedValue.ToString());
+                            request.IsActive = cbActive.Checked;
+                            request.VehicleModelId = int.Parse(cmbModel.SelectedValue.ToString());
+                            request.VehicleTypeId = 1;
+                            request.Price = int.Parse(txtPrice.Text);
+                            request.Transmission = cbTransmission.SelectedValue.ToString();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Check your input");
+                            return;
+                        }
 
 
-                    if (EditId != 0)
+                        if (EditId != 0)
                     {
-                        await _serviceVehicle.Update<Model.Vehicle>(editVehicle.Id, request);
-                        MessageBox.Show("Vehicle sucessfully updated!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.Close();
+                            try
+                            {
+                                await _serviceVehicle.Update<Model.Vehicle>(editVehicle.Id, request);
+                                MessageBox.Show("Vehicle sucessfully updated!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                Close();
+                            }
+                            catch (Exception)
+                            {
+                                MessageBox.Show("Check your input");
+                            }
+                        
                     }
                     else
                     {
-                        await _serviceVehicle.Insert<Model.Vehicle>(request);
-                        MessageBox.Show("Vehicle sucessfully added!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.Close();
+                            try
+                            {
+                                await _serviceVehicle.Insert<Model.Vehicle>(request);
+                                MessageBox.Show("Vehicle sucessfully added!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                Close();
+                            }
+                            catch (Exception)
+                            {
+                                MessageBox.Show("Chech your input");
+                            }
+                        }
                     }
-                    }
-                    await _parentDgv.GetData();
 
                 }
                 catch (Exception ex)
@@ -391,10 +427,18 @@ namespace CarRent.WinUI.Forms.Vehicles
             var msg = MessageBox.Show("Are you sure?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if(msg == DialogResult.Yes)
             {
-                await _serviceVehicle.Delete(EditId);
-                MessageBox.Show("Car succesfully deleted.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                await _parentDgv.GetData();
-                Close();
+                try
+                {
+                    await _serviceVehicle.Delete(EditId);
+                    MessageBox.Show("Car succesfully deleted.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Close();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Vehicle could not be found", "Status", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    throw;
+                }
+                
             }
         }
     }

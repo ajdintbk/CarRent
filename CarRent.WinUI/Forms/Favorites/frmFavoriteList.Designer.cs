@@ -62,6 +62,7 @@
             this.Controls.Add(this.lblNo);
             this.Controls.Add(this.dgvFavorites);
             this.Name = "frmFavoriteList";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmFavoriteList";
             this.Load += new System.EventHandler(this.frmFavoriteList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFavorites)).EndInit();

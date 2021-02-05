@@ -28,31 +28,67 @@ namespace CarRent.WinUI
             {
                 query = await search?.ToQueryString();
             }
+            try
+            {
+                return await $"{Properties.Settings.Default.APIurl}/{_route}?{query}"
+                   .WithBasicAuth(username, password).GetJsonAsync<T>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,"Status", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                throw;
 
-            return await $"{Properties.Settings.Default.APIurl}/{_route}?{query}"
-               .WithBasicAuth(username, password).GetJsonAsync<T>();
+            }
 
         }
 
         public async Task<T> GetById<T>(object id)
         {
-            var url = $"{Properties.Settings.Default.APIurl}/{_route}/{id}";
+            try
+            {
+                var url = $"{Properties.Settings.Default.APIurl}/{_route}/{id}";
 
-            return await url.WithBasicAuth(username,password).GetJsonAsync<T>();
+                return await url.WithBasicAuth(username, password).GetJsonAsync<T>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Status", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
+            }
+            
         }
 
         public async Task<T> Insert<T>(object request)
         {
-            var url = $"{Properties.Settings.Default.APIurl}/{_route}";
+            try
+            {
+                var url = $"{Properties.Settings.Default.APIurl}/{_route}";
 
-            return await url.WithBasicAuth(username, password).PostJsonAsync(request).ReceiveJson<T>();
+                return await url.WithBasicAuth(username, password).PostJsonAsync(request).ReceiveJson<T>();
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error");
+                throw;
+            }
         }
 
         public async Task<T> Update<T>(object id, object request)
         {
-            var url = $"{Properties.Settings.Default.APIurl}/{_route}/{id}";
 
-            return await url.WithBasicAuth(username, password).PutJsonAsync(request).ReceiveJson<T>();
+            try
+            {
+                var url = $"{Properties.Settings.Default.APIurl}/{_route}/{id}";
+
+                return await url.WithBasicAuth(username, password).PutJsonAsync(request).ReceiveJson<T>();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Status", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
+            }
         }
 
         public async Task Delete(object id)

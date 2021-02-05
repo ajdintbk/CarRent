@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+			 xmlns:ImageHelper="clr-namespace:CarRent.MobileApp.ImageHelper"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:vm="clr-namespace:CarRent.MobileApp.ViewModels"
+             mc:Ignorable="d"
+             x:Class="CarRent.MobileApp.Views.VehicleListPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ImageHelper:ImageHelper x:Key="imgHelper" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.BindingContext>
+        <vm:VehicleListViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Padding="5">
+            
+            <Label  Text="Vehicles" Padding="5" FontAttributes="Bold" FontSize="Large"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Label IsVisible="{Binding IsBusy}" Text="Loading..." HorizontalOptions="CenterAndExpand"></Label>
+            <Picker Margin="10" ItemsSource="{Binding BrandList}" SelectedItem="{Binding SelectedBrand}" ItemDisplayBinding="{Binding Name}"></Picker>
+            <ListView ItemsSource="{Binding VehicleList}" ItemSelected="ListView_ItemSelected"  BackgroundColor="White">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="10" Orientation="Horizontal">
+                                <StackLayout>
+                                    <Image WidthRequest="240" HeightRequest="240" Source="{Binding Image,Converter={StaticResource imgHelper}}"></Image>
+                                </StackLayout>
+
+                                <StackLayout Orientation="Vertical" Grid.Row="1" Margin="10">
+
+                                    <Label Text="{Binding Name}" 
+									d:Text="{Binding .}"
+									LineBreakMode="NoWrap" 
+									Style="{DynamicResource ListItemTextStyle}" 
+									FontSize="16" />
+
+                                    <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="6">
+                                        <Label Text="Description : "
+										Style="{DynamicResource LargeLabel}" />
+
+                                        <Label Text="{Binding Description}" 
+										d:Text="{Binding .}"
+										LineBreakMode="NoWrap" 
+										Style="{DynamicResource ListItemTextStyle}" 
+										FontSize="15" />
+                                    </StackLayout>
+
+                                    <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="6">
+                                        <Label Text="Price per day : "
+										Style="{DynamicResource LargeLabel}" />
+
+                                        <Label Text="{Binding Price}" 
+										d:Text="{Binding .}"
+										LineBreakMode="NoWrap" 
+										Style="{DynamicResource ListItemTextStyle}" 
+										FontSize="15" />
+                                    </StackLayout>
+
+                                    <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="6">
+                                        <Label Text="Year manufactured : "
+										Style="{DynamicResource LargeLabel}" />
+
+                                        <Label Text="{Binding YearManufactured}" 
+										d:Text="{Binding .}"
+										LineBreakMode="NoWrap" 
+										Style="{DynamicResource ListItemTextStyle}" 
+										FontSize="15" />
+                                    </StackLayout>
+
+                                    <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="6">
+                                        <Label Text="Transmission : "
+										Style="{DynamicResource LargeLabel}" />
+
+                                        <Label Text="{Binding Transmission}" 
+										d:Text="{Binding .}"
+										LineBreakMode="NoWrap" 
+										Style="{DynamicResource ListItemTextStyle}" 
+										FontSize="15" />
+                                    </StackLayout>
+
+                                    <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="6">
+                                        <Label Text="Number of seats : "
+										Style="{DynamicResource LargeLabel}" />
+
+                                        <Label Text="{Binding NumberOfSeats}" 
+										d:Text="{Binding .}"
+										LineBreakMode="NoWrap" 
+										Style="{DynamicResource ListItemTextStyle}" 
+										FontSize="15" />
+                                    </StackLayout>
+
+                                    <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="6">
+                                        <Label Text="Fuel : "
+										LineBreakMode="NoWrap" 
+										Style="{DynamicResource LargeLabel}"  />
+
+                                        <Label Text="{Binding Fuel.Name}" 
+										d:Text="{Binding .}"
+										LineBreakMode="NoWrap" 
+										Style="{DynamicResource ListItemTextStyle}" 
+										FontSize="15" />
+                                    </StackLayout>
+
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:vm="clr-namespace:CarRent.MobileApp.ViewModels"
+             mc:Ignorable="d"
+             x:Class="CarRent.MobileApp.Views.RentPaymentPage">
+    <ContentPage.BindingContext>
+        <vm:VehicleDetailsViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Padding="15">
+            <Label Text="Checkout" FontSize="Large" FontAttributes="Bold"></Label>
+            <BoxView HeightRequest="1" Color="LightGray"/>
+            <StackLayout  Orientation="Horizontal">
+                <Label Text="Vehicle: " />
+                <Label Text="{Binding Vehicle.Name}" FontAttributes="Bold" FontSize="15" />
+            </StackLayout>
+            <StackLayout  Orientation="Horizontal">
+                <Label Text="Seats: " />
+                <Label Text="{Binding Vehicle.NumberOfSeats}" FontAttributes="Bold" FontSize="15" />
+            </StackLayout>
+            <StackLayout  Orientation="Horizontal">
+                <Label Text="Transmission: " />
+                <Label Text="{Binding Vehicle.Transmission}" FontAttributes="Bold" FontSize="15" />
+            </StackLayout>
+            <StackLayout  Orientation="Horizontal">
+                <Label Text="Vehicle price: " />
+                <Label Text="{Binding Vehicle.Price}" FontAttributes="Bold" FontSize="15" />
+                <Label Text="KM" FontAttributes="Bold" FontSize="15" />
+                <Label Text="x" FontAttributes="Bold" FontSize="15" />
+                <Label Text="{Binding NumberOfDays}" FontSize="15" />
+            </StackLayout>
+            <BoxView HeightRequest="1" Color="LightGray"/>
+            <StackLayout  Orientation="Horizontal" HorizontalOptions="End">
+                <Label Text="Total:" FontSize="Large" FontAttributes="Bold"></Label>
+                <Label Text="{Binding TotalPrice}" FontSize="Large" FontAttributes="Bold"></Label>
+                <Label Text="KM" FontSize="Large" FontAttributes="Bold"></Label>
+            </StackLayout>
+            <Button Text="Pay with Stripe" BackgroundColor="BlueViolet" HorizontalOptions="Center" WidthRequest="200" TextColor="White" FontAttributes="Bold" Margin="10" Padding="10" FontSize="16" Command="{Binding PayRent}" Clicked="Button_Clicked"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

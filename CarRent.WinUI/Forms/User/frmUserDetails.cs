@@ -1,4 +1,5 @@
 ﻿using CarRent.WinUI.Forms.Rents;
+using CarRent.WinUI.Forms.ReportForms;
 using Flurl.Http;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace CarRent.WinUI.Forms.User
         protected APIService _cityService = new APIService("City");
         protected APIService _roleService = new APIService("Role");
         private int id = 0;
-
+        private List<Model.Rent> rents;
         public frmUserDetails()
         {
             InitializeComponent();
@@ -59,7 +60,7 @@ namespace CarRent.WinUI.Forms.User
                 var userreq = new Model.Requests.User.UserSearchRequest() { UserId = id };
                 var user = await _userService.Get<List<Model.User>>(userreq);
                 var rentreq = new Model.Requests.Rent.RentSearchRequest() { UserId = id };
-                List<Model.Rent> rents;
+                
                 if (rentList != null)
                     rents = rentList;
                 else
@@ -116,6 +117,8 @@ namespace CarRent.WinUI.Forms.User
                     dgvRents.Columns.Add(bcol);
                 if (!dgvRents.Columns.Contains("btnCancel") && id == APIService.loggedUser.Id)
                     dgvRents.Columns.Add(bcol2);
+                if (dgvRents.RowCount > 0)
+                    btnReport.Visible = true;
             }
 
         }
@@ -297,10 +300,15 @@ namespace CarRent.WinUI.Forms.User
             }
             else
             {
-
                 var list = await $"{Properties.Settings.Default.APIurl}/Rent/futurerents/{id}".WithBasicAuth(APIService.username, APIService.password).GetJsonAsync<List<Model.Rent>>();
                 GetData(list);
             }
+        }
+
+        private void btnReport_Click(object sender, EventArgs e)
+        {
+            frmUserRents report = new frmUserRents(rents);
+            report.ShowDialog();
         }
     }
 }

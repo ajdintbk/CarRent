@@ -254,6 +254,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblVehicle);
             this.Name = "frmAddReview";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmAddReview";
             this.Load += new System.EventHandler(this.frmAddReview_Load);
             this.groupBox1.ResumeLayout(false);

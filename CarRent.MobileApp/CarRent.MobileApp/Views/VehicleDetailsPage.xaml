@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:vm="clr-namespace:CarRent.MobileApp.ViewModels" xmlns:ImageHelper="clr-namespace:CarRent.MobileApp.ImageHelper"
+             mc:Ignorable="d"
+             x:Class="CarRent.MobileApp.Views.VehicleDetailsPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ImageHelper:ImageHelper x:Key="imgHelper" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.BindingContext>
+        <vm:VehicleDetailsViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid Padding="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Aspect="AspectFit" Source="{Binding Vehicle.Image,Converter={StaticResource imgHelper}}"></Image>
+            <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Text="{Binding Vehicle.Name}" FontAttributes="Bold" FontSize="Large"></Label>
+            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Vehicle.Description}"></Label>
+            <StackLayout Grid.Row="3" Grid.ColumnSpan="1" Orientation="Horizontal" Spacing="6">
+                <Label Text="Price: " />
+                <Label Text="{Binding Vehicle.Price}" FontAttributes="Bold" FontSize="15" />
+                <Label Text="KM / day" FontAttributes="Bold" FontSize="15" />
+            </StackLayout>
+            <StackLayout Grid.Row="4" Grid.ColumnSpan="1" Orientation="Horizontal" Spacing="6">
+                <Label Text="Year: " />
+                <Label Text="{Binding Vehicle.YearManufactured}" FontAttributes="Bold" FontSize="15" />
+            </StackLayout>
+            <StackLayout Grid.Row="5" Grid.ColumnSpan="1" Orientation="Horizontal" Spacing="6">
+                <Label Text="Seats: " />
+                <Label Text="{Binding Vehicle.NumberOfSeats}" FontAttributes="Bold" FontSize="15" />
+            </StackLayout>
+            <StackLayout Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="1" Orientation="Horizontal" Spacing="6">
+                <Label Text="{Binding Vehicle.Transmission}" HorizontalTextAlignment="End" FontAttributes="Bold" FontSize="15" />
+            </StackLayout>
+            <StackLayout Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="1" Orientation="Horizontal" Spacing="6">
+                <Label Text="{Binding Vehicle.Fuel.Name}" HorizontalTextAlignment="End" FontAttributes="Bold" FontSize="15" />
+            </StackLayout>
+            <StackLayout Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="1" Orientation="Horizontal" Spacing="6">
+                <Label Text="{Binding Vehicle.Brand.Name}" HorizontalTextAlignment="End" FontAttributes="Bold" FontSize="15" />
+                <Label Text="{Binding Vehicle.VehicleModel.Name}" FontAttributes="Bold" FontSize="15" />
+            </StackLayout>
+            <Label  Grid.Row="6" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" TextColor="DodgerBlue" Text="Enter dates to check availability"></Label>
+            <StackLayout Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="6">
+                <Label Text="Start Date" FontAttributes="None" FontSize="12" />
+            </StackLayout>
+            <DatePicker Grid.Row="8" Grid.ColumnSpan="2" Date="{Binding StartDate}"></DatePicker>
+            <StackLayout Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="6">
+                <Label Text="End Date" FontAttributes="None" FontSize="12" />
+            </StackLayout>
+            <DatePicker Grid.Row="10" Grid.ColumnSpan="2" Date="{Binding EndDate}"></DatePicker>
+            <StackLayout Margin="10" Grid.Row="11" Grid.ColumnSpan="2">
+                <Button IsVisible="{Binding RentButton}"  BackgroundColor="DodgerBlue" TextColor="White" FontSize="16" FontAttributes="Bold" Text="Check availability" Command="{Binding RentCommand}"></Button>
+                <Button IsVisible="{Binding RentAvailable}"  BackgroundColor="BlueViolet" TextColor="White" FontSize="16" FontAttributes="Bold" Text="Proceed to Checkout" Command="{Binding refreshCommand}" Clicked="Button_Clicked"></Button>
+            </StackLayout>
+            <Label Grid.Row="12" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" FontSize="Body" FontAttributes="Bold" Text="{Binding RentStatus}"></Label>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

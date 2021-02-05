@@ -32,10 +32,10 @@
             this.btnUsers = new System.Windows.Forms.Button();
             this.btnRents = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnFavorites = new System.Windows.Forms.Button();
             this.btnMyProfile = new System.Windows.Forms.Button();
             this.pnlContent = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnFavorites = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.pnlContent.SuspendLayout();
             this.SuspendLayout();
@@ -95,6 +95,20 @@
             this.panel1.Size = new System.Drawing.Size(807, 59);
             this.panel1.TabIndex = 3;
             // 
+            // btnFavorites
+            // 
+            this.btnFavorites.BackColor = System.Drawing.Color.SlateGray;
+            this.btnFavorites.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFavorites.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnFavorites.ForeColor = System.Drawing.Color.Transparent;
+            this.btnFavorites.Location = new System.Drawing.Point(568, 15);
+            this.btnFavorites.Name = "btnFavorites";
+            this.btnFavorites.Size = new System.Drawing.Size(110, 32);
+            this.btnFavorites.TabIndex = 4;
+            this.btnFavorites.Text = "Favorites";
+            this.btnFavorites.UseVisualStyleBackColor = false;
+            this.btnFavorites.Click += new System.EventHandler(this.btnFavorites_Click);
+            // 
             // btnMyProfile
             // 
             this.btnMyProfile.BackColor = System.Drawing.Color.SlateGray;
@@ -126,20 +140,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Choose item from menu";
             // 
-            // btnFavorites
-            // 
-            this.btnFavorites.BackColor = System.Drawing.Color.SlateGray;
-            this.btnFavorites.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFavorites.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnFavorites.ForeColor = System.Drawing.Color.Transparent;
-            this.btnFavorites.Location = new System.Drawing.Point(568, 15);
-            this.btnFavorites.Name = "btnFavorites";
-            this.btnFavorites.Size = new System.Drawing.Size(110, 32);
-            this.btnFavorites.TabIndex = 4;
-            this.btnFavorites.Text = "Favorites";
-            this.btnFavorites.UseVisualStyleBackColor = false;
-            this.btnFavorites.Click += new System.EventHandler(this.btnFavorites_Click);
-            // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -148,6 +148,7 @@
             this.Controls.Add(this.pnlContent);
             this.Controls.Add(this.panel1);
             this.Name = "frmHome";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmHome";
             this.Load += new System.EventHandler(this.frmHome_Load);
             this.panel1.ResumeLayout(false);

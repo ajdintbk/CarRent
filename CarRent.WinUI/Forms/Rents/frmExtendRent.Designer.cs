@@ -76,6 +76,7 @@
             this.Controls.Add(this.txtNumberOfDays);
             this.Controls.Add(this.label1);
             this.Name = "frmExtendRent";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmExtendRent";
             this.Load += new System.EventHandler(this.frmExtendRent_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();

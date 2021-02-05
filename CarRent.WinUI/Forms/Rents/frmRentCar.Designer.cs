@@ -220,6 +220,7 @@
             this.Controls.Add(this.lblCarName);
             this.Controls.Add(this.label1);
             this.Name = "frmRentCar";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmRentCar";
             this.Load += new System.EventHandler(this.frmRentCar_Load);
             ((System.ComponentModel.ISupportInitialize)(this.err)).EndInit();

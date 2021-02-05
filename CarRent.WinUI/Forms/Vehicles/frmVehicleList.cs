@@ -89,6 +89,9 @@ namespace CarRent.WinUI.Forms.Vehicles
             bcol.UseColumnTextForButtonValue = true;
             if (!dgvVehicleList.Columns.Contains("btnDetails"))
                 dgvVehicleList.Columns.Add(bcol);
+
+            if(dgvVehicleList.RowCount == 0)
+                MessageBox.Show("No vehicles with that search query.", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         private async void frmVehicleList_Load(object sender, EventArgs e)
         {
@@ -96,7 +99,6 @@ namespace CarRent.WinUI.Forms.Vehicles
             {
                 btnAddVehicle.Visible = false;
             }
-            await GetData();
             await GetBrand();
 
         }
@@ -106,6 +108,9 @@ namespace CarRent.WinUI.Forms.Vehicles
         private void button1_Click(object sender, EventArgs e)
         {
             frmAddVehicle frmAddVehicle = new frmAddVehicle();
+            frmAddVehicle.FormClosed += async delegate {
+                await GetData();
+            };
             frmAddVehicle.ShowDialog();
 
         }
@@ -125,7 +130,6 @@ namespace CarRent.WinUI.Forms.Vehicles
 
         private async void btnRefresh_Click(object sender, EventArgs e)
         {
-            await GetData();
             await GetBrand();
         }
 
@@ -139,8 +143,11 @@ namespace CarRent.WinUI.Forms.Vehicles
                 int result = int.Parse(dgvVehicleList.Rows[e.RowIndex].Cells[0].Value.ToString());
                 if (result != 0)
                 {
-                    frmAddVehicle frmAdd = new frmAddVehicle(result,this);
-                    frmAdd.ShowDialog();
+                    frmAddVehicle frmAdd = new frmAddVehicle(result);
+                        frmAdd.FormClosed += async delegate {
+                            await GetBrand();
+                        };
+                        frmAdd.ShowDialog();
                 }
             }
             }
@@ -160,6 +167,11 @@ namespace CarRent.WinUI.Forms.Vehicles
         }
 
         private async void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            await GetData();
+        }
+
+        private async void cbBrand_SelectedIndexChanged(object sender, EventArgs e)
         {
             await GetData();
         }

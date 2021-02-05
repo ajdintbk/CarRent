@@ -48,7 +48,7 @@ namespace CarRent.WebApi.Services
                 var sd = search.StartDate.Value.Date;
                 var ed = search.EndDate.Value.Date;
 
-                query = query.Where(e => e.StartDate >= sd && e.EndDate <= ed);
+                query = query.Where(e => e.StartDate.Date >= sd && e.EndDate.Date <= ed);
             }
 
             if (!string.IsNullOrWhiteSpace(search.UserName))
@@ -136,7 +136,7 @@ namespace CarRent.WebApi.Services
 
         public List<Model.Rent> FutureRents(int id)
         {
-            var query = _context.Rents.Include(i=>i.Vehicle).Include(i=>i.User).Where(w => w.StartDate.Date > DateTime.Now.Date).ToList();
+            var query = _context.Rents.Include(i=>i.Vehicle).Include(i=>i.User).Where(w => w.UserId == id && w.StartDate.Date > DateTime.Now.Date).ToList();
             return _mapper.Map<List<Model.Rent>>(query);
         }
 

@@ -63,6 +63,7 @@
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmRentsList";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmRentsList";
             this.Load += new System.EventHandler(this.frmRentsList_LoadAsync);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRents)).EndInit();

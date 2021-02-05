@@ -35,7 +35,7 @@
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(70, 66);
+            this.txtName.Location = new System.Drawing.Point(27, 50);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(185, 20);
             this.txtName.TabIndex = 0;
@@ -43,7 +43,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(67, 40);
+            this.label1.Location = new System.Drawing.Point(24, 24);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 1;
@@ -51,7 +51,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(118, 101);
+            this.btnSave.Location = new System.Drawing.Point(27, 88);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 2;
@@ -63,11 +63,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(344, 156);
+            this.ClientSize = new System.Drawing.Size(226, 133);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtName);
             this.Name = "frmAddVehicleModel";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmAddVehicleModel";
             this.ResumeLayout(false);
             this.PerformLayout();

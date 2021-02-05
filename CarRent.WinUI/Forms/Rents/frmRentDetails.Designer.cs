@@ -339,6 +339,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grpClient);
             this.Name = "frmRentDetails";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmRentDetails";
             this.Load += new System.EventHandler(this.frmRentDetails_Load);
             this.grpClient.ResumeLayout(false);

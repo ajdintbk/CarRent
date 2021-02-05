@@ -31,10 +31,15 @@
             this.components = new System.ComponentModel.Container();
             this.dgvRents = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chbFutureRents = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtPwConfirm = new System.Windows.Forms.TextBox();
+            this.chActive = new System.Windows.Forms.CheckBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtPassword = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.chActive = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.cbRole = new System.Windows.Forms.ComboBox();
@@ -50,11 +55,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtFirstName = new System.Windows.Forms.TextBox();
             this.err = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label8 = new System.Windows.Forms.Label();
-            this.txtPassword = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtPwConfirm = new System.Windows.Forms.TextBox();
-            this.chbFutureRents = new System.Windows.Forms.CheckBox();
+            this.btnReport = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRents)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -74,14 +75,26 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnReport);
             this.groupBox1.Controls.Add(this.chbFutureRents);
             this.groupBox1.Controls.Add(this.dgvRents);
             this.groupBox1.Location = new System.Drawing.Point(55, 249);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(602, 194);
+            this.groupBox1.Size = new System.Drawing.Size(602, 192);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Rent history";
+            // 
+            // chbFutureRents
+            // 
+            this.chbFutureRents.AutoSize = true;
+            this.chbFutureRents.Location = new System.Drawing.Point(468, 31);
+            this.chbFutureRents.Name = "chbFutureRents";
+            this.chbFutureRents.Size = new System.Drawing.Size(104, 17);
+            this.chbFutureRents.TabIndex = 1;
+            this.chbFutureRents.Text = "Future rents only";
+            this.chbFutureRents.UseVisualStyleBackColor = true;
+            this.chbFutureRents.CheckedChanged += new System.EventHandler(this.chbFutureRents_CheckedChanged);
             // 
             // groupBox2
             // 
@@ -113,6 +126,49 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "User details";
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(310, 144);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(113, 13);
+            this.label9.TabIndex = 22;
+            this.label9.Text = "Password confirmation";
+            // 
+            // txtPwConfirm
+            // 
+            this.txtPwConfirm.Location = new System.Drawing.Point(313, 160);
+            this.txtPwConfirm.Name = "txtPwConfirm";
+            this.txtPwConfirm.Size = new System.Drawing.Size(198, 20);
+            this.txtPwConfirm.TabIndex = 21;
+            // 
+            // chActive
+            // 
+            this.chActive.AutoSize = true;
+            this.chActive.Location = new System.Drawing.Point(540, 10);
+            this.chActive.Name = "chActive";
+            this.chActive.Size = new System.Drawing.Size(56, 17);
+            this.chActive.TabIndex = 14;
+            this.chActive.Text = "Active";
+            this.chActive.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(310, 105);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(53, 13);
+            this.label8.TabIndex = 20;
+            this.label8.Text = "Password";
+            // 
+            // txtPassword
+            // 
+            this.txtPassword.Location = new System.Drawing.Point(313, 121);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';
+            this.txtPassword.Size = new System.Drawing.Size(198, 20);
+            this.txtPassword.TabIndex = 19;
+            // 
             // btnCancel
             // 
             this.btnCancel.BackColor = System.Drawing.Color.DimGray;
@@ -140,16 +196,6 @@
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // chActive
-            // 
-            this.chActive.AutoSize = true;
-            this.chActive.Location = new System.Drawing.Point(540, 10);
-            this.chActive.Name = "chActive";
-            this.chActive.Size = new System.Drawing.Size(56, 17);
-            this.chActive.TabIndex = 14;
-            this.chActive.Text = "Active";
-            this.chActive.UseVisualStyleBackColor = true;
             // 
             // label7
             // 
@@ -272,49 +318,16 @@
             // 
             this.err.ContainerControl = this;
             // 
-            // label8
+            // btnReport
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(310, 105);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(53, 13);
-            this.label8.TabIndex = 20;
-            this.label8.Text = "Password";
-            // 
-            // txtPassword
-            // 
-            this.txtPassword.Location = new System.Drawing.Point(313, 121);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(198, 20);
-            this.txtPassword.TabIndex = 19;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(310, 144);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(113, 13);
-            this.label9.TabIndex = 22;
-            this.label9.Text = "Password confirmation";
-            // 
-            // txtPwConfirm
-            // 
-            this.txtPwConfirm.Location = new System.Drawing.Point(313, 160);
-            this.txtPwConfirm.Name = "txtPwConfirm";
-            this.txtPwConfirm.Size = new System.Drawing.Size(198, 20);
-            this.txtPwConfirm.TabIndex = 21;
-            // 
-            // chbFutureRents
-            // 
-            this.chbFutureRents.AutoSize = true;
-            this.chbFutureRents.Location = new System.Drawing.Point(468, 31);
-            this.chbFutureRents.Name = "chbFutureRents";
-            this.chbFutureRents.Size = new System.Drawing.Size(104, 17);
-            this.chbFutureRents.TabIndex = 1;
-            this.chbFutureRents.Text = "Future rents only";
-            this.chbFutureRents.UseVisualStyleBackColor = true;
-            this.chbFutureRents.CheckedChanged += new System.EventHandler(this.chbFutureRents_CheckedChanged);
+            this.btnReport.Location = new System.Drawing.Point(37, 24);
+            this.btnReport.Name = "btnReport";
+            this.btnReport.Size = new System.Drawing.Size(75, 23);
+            this.btnReport.TabIndex = 3;
+            this.btnReport.Text = "Print Report";
+            this.btnReport.UseVisualStyleBackColor = true;
+            this.btnReport.Visible = false;
+            this.btnReport.Click += new System.EventHandler(this.btnReport_Click);
             // 
             // frmUserDetails
             // 
@@ -324,6 +337,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "frmUserDetails";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmUserDetails";
             this.Load += new System.EventHandler(this.frmUserDetails_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRents)).EndInit();
@@ -364,5 +378,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.CheckBox chbFutureRents;
+        private System.Windows.Forms.Button btnReport;
     }
 }

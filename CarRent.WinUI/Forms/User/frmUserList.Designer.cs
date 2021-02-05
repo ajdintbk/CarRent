@@ -117,6 +117,7 @@
             this.Controls.Add(this.txtSearchName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmUserList";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmUserList";
             this.Load += new System.EventHandler(this.frmUserList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUserList)).EndInit();

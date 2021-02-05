@@ -146,6 +146,7 @@
             // 
             // cbTransmission
             // 
+            this.cbTransmission.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTransmission.FormattingEnabled = true;
             this.cbTransmission.Location = new System.Drawing.Point(650, 113);
             this.cbTransmission.Name = "cbTransmission";
@@ -305,6 +306,7 @@
             // 
             // cmbModel
             // 
+            this.cmbModel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbModel.FormattingEnabled = true;
             this.cmbModel.Location = new System.Drawing.Point(487, 63);
             this.cmbModel.Name = "cmbModel";
@@ -322,6 +324,7 @@
             // 
             // cmbBrand
             // 
+            this.cmbBrand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbBrand.FormattingEnabled = true;
             this.cmbBrand.Location = new System.Drawing.Point(650, 22);
             this.cmbBrand.Name = "cmbBrand";
@@ -339,6 +342,7 @@
             // 
             // cmbFuel
             // 
+            this.cmbFuel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbFuel.FormattingEnabled = true;
             this.cmbFuel.Location = new System.Drawing.Point(487, 22);
             this.cmbFuel.Name = "cmbFuel";
@@ -412,6 +416,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.groupBox1);
             this.Name = "frmAddVehicle";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmAddVehicle";
             this.Load += new System.EventHandler(this.frmAddVehicle_Load);
             this.groupBox1.ResumeLayout(false);
