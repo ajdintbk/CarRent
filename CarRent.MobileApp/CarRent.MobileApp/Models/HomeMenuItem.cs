@@ -6,10 +6,9 @@ namespace CarRent.MobileApp.Models
 {
     public enum MenuItemType
     {
-        Browse,
-        About,
         Vehicles,
-        Messages
+        Messages,
+        About
     }
     public class HomeMenuItem
     {

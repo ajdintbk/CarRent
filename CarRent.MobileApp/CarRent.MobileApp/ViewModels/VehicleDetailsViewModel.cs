@@ -1,8 +1,10 @@
 ﻿using CarRent.Model;
+using CarRent.Model.Requests.Recommend;
 using Flurl.Http;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -13,11 +15,68 @@ namespace CarRent.MobileApp.ViewModels
     public class VehicleDetailsViewModel : BaseViewModel
     {
         private readonly APIService _service = new APIService("Rent");
+        private readonly APIService _serviceRating = new APIService("Review");
+        private readonly APIService _serviceRecommend = new APIService("Recommend");
         private readonly APIService _serviceCheck = new APIService("Rent/checkavailability");
         public VehicleDetailsViewModel()
         {
             RentCommand = new Command(async () => await RentVehicle());
             refreshCommand = new Command( () =>  Refresh());
+            RecommendComand = new Command(async () => await Recommendation());
+        }
+
+        private string _rating = string.Empty;
+        public string AverageRating
+        {
+            get { return _rating; }
+            set { SetProperty(ref _rating, value); }
+        }
+        private bool _recommendBusy = false;
+        public bool RecommendBusy
+        {
+            get { return _recommendBusy; }
+            set { SetProperty(ref _recommendBusy, value); }
+        }
+        public ObservableCollection<Model.Vehicle> RecommendedVehicleList { get; set; } = new ObservableCollection<Model.Vehicle>();
+
+        public async Task Recommendation()
+        {
+            if(RecommendedVehicleList == null || RecommendedVehicleList.Count == 0)
+            {
+                RecommendBusy = true;
+                var allRatings = await _serviceRating.Get<List<Model.Review>>(null);
+                var request = new RecommendSearchRequest
+                {
+                    VehicleId = Vehicle.Id
+                };
+
+                List<Model.Vehicle> recList = await _serviceRecommend.Get<List<Model.Vehicle>>(request);
+                RecommendedVehicleList.Clear();
+
+                foreach (var item in recList)
+                {
+                    RecommendedVehicleList.Add(item);
+                }
+                RecommendBusy = false;
+
+                float avgRating = 0;
+                int i = 0;
+                foreach (var item in allRatings)
+                {
+                    if (Vehicle.Id == item.VehicleId)
+                    {
+                        avgRating += item.NumberOfStars;
+                        i++;
+                    }
+                }
+                if (avgRating == 0)
+                {
+                    AverageRating = "The car has no ratings yet";
+                    return;
+                }
+                AverageRating = (avgRating / i).ToString();
+            }
+
         }
 
         private void Refresh()
@@ -105,5 +164,6 @@ namespace CarRent.MobileApp.ViewModels
         }
         public ICommand RentCommand { get; set; }
         public ICommand refreshCommand { get; set; }
+        public ICommand RecommendComand { get; set; }
     }
 }

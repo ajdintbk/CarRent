@@ -29,6 +29,7 @@ namespace CarRent.MobileApp.Views
         private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var item = e.SelectedItem as Vehicle;
+            //await Navigation.PopToRootAsync();
             await Navigation.PushAsync(new VehicleDetailsPage(item));
         }
     }

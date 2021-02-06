@@ -22,7 +22,8 @@ namespace CarRent.WebApi.Services
 
         public List<Model.Rent> CheckAvailability(RentSearchRequest search)
         {
-            var rents = _context.Rents.Where(w => w.VehicleId == search.VehicleId).Where(w => w.StartDate <= search.StartDate && w.EndDate >= search.StartDate || w.EndDate <= search.EndDate && w.EndDate >= search.EndDate).ToList();
+            var rents = _context.Rents.Where(w => w.VehicleId == search.VehicleId).
+                Where(w => w.StartDate.Date <= search.StartDate.Value.Date && w.EndDate.Date >= search.StartDate.Value.Date || w.EndDate.Date <= search.EndDate.Value.Date && w.EndDate.Date >= search.EndDate.Value.Date).ToList();
             if (rents.Count > 0)
             {
                 return _mapper.Map<List<Model.Rent>>(rents);

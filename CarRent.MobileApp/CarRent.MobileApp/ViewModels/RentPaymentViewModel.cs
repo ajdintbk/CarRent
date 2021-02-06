@@ -64,7 +64,7 @@ namespace CarRent.MobileApp.ViewModels
             CancellationToken token = tokenSource.Token;
             try
             {
-                UserDialogs.Instance.ShowLoading("Payment proccessing...");
+                UserDialogs.Instance.ShowLoading("Proccessing payment...");
                 await Task.Run(async () =>
                 {
                     var Token = CreateToken();
@@ -168,7 +168,9 @@ namespace CarRent.MobileApp.ViewModels
                 if (result != null)
                 {
                     await Payment();
-                    UserDialogs.Instance.Alert("Successfully rented", null, "OK");
+                    //UserDialogs.Instance.Alert("Successfully rented", null, "OK");
+                    await Xamarin.Forms.Application.Current.MainPage.DisplayAlert("Status", "Successfully rented", "OK");
+
                 }
             }
             catch (Exception ex)

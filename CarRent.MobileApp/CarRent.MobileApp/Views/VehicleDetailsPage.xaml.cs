@@ -27,12 +27,20 @@ namespace CarRent.MobileApp.Views
             };
         }
 
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+            await model.Recommendation();
+        }
         private async void Button_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new RentPaymentPage());
         }
 
-        
-
+        private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var item = e.SelectedItem as Vehicle;
+            await Navigation.PushAsync(new VehicleDetailsPage(item));
+        }
     }
 }

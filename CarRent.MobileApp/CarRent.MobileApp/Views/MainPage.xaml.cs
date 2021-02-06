@@ -21,7 +21,7 @@ namespace CarRent.MobileApp.Views
 
             MasterBehavior = MasterBehavior.Popover;
 
-            MenuPages.Add((int)MenuItemType.Browse, (NavigationPage)Detail);
+            MenuPages.Add((int)MenuItemType.Vehicles, new NavigationPage(new VehicleListPage()));
         }
 
         public async Task NavigateFromMenu(int id)
@@ -30,9 +30,7 @@ namespace CarRent.MobileApp.Views
             {
                 switch (id)
                 {
-                    case (int)MenuItemType.Browse:
-                        MenuPages.Add(id, new NavigationPage(new ItemsPage()));
-                        break;
+                   
                     case (int)MenuItemType.About:
                         MenuPages.Add(id, new NavigationPage(new AboutPage()));
                         break;

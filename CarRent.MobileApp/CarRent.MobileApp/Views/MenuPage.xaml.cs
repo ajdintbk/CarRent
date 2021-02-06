@@ -20,10 +20,9 @@ namespace CarRent.MobileApp.Views
 
             menuItems = new List<HomeMenuItem>
             {
-                new HomeMenuItem {Id = MenuItemType.Browse, Title="Browse" },
-                new HomeMenuItem {Id = MenuItemType.About, Title="About" },
                 new HomeMenuItem {Id = MenuItemType.Vehicles, Title="Vehicles" },
-                new HomeMenuItem {Id = MenuItemType.Messages, Title="Messages" }
+                new HomeMenuItem {Id = MenuItemType.Messages, Title="Messages" },
+                new HomeMenuItem {Id = MenuItemType.About, Title="About" }
             };
 
             ListViewMenu.ItemsSource = menuItems;
