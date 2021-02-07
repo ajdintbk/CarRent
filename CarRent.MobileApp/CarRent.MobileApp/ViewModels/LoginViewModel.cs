@@ -73,6 +73,7 @@ namespace CarRent.MobileApp.ViewModels
                     if (item.Username == Username)
                     {
                         APIService.UserId = item.Id;
+                        APIService.Role = item.Role.Name;
                     }
                 }
                 //await _service.Get<dynamic>(null);

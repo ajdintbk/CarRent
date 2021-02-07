@@ -27,13 +27,14 @@ namespace CarRent.MobileApp.ViewModels
             {
                 DateCreated = DateTime.Now,
                 UserId = APIService.UserId,
-                IsOpened = false,
+                IsOpened = true,
                 Question = Question,
             };
             try
             {
                 var response = await _service.Insert<Model.Message>(request);
                 await Application.Current.MainPage.DisplayAlert("Status", "Message submited.", "OK");
+                Question = string.Empty;
             }
             catch (Exception)
             {

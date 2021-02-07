@@ -2,12 +2,92 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:CarRent.MobileApp"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:vm="clr-namespace:CarRent.MobileApp.ViewModels"
              mc:Ignorable="d"
              x:Class="CarRent.MobileApp.Views.MessagesListPage">
+    
+    <ContentPage.BindingContext>
+        <vm:MessageListViewModel />
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout Padding="15">
-            <Button Text="New message" HorizontalOptions="Start" BackgroundColor="DodgerBlue" TextColor="White" FontAttributes="Bold" Clicked="Button_Clicked"></Button>
+            <StackLayout Orientation="Horizontal">
+                <CheckBox IsChecked="False" CheckedChanged="CheckBox_CheckedChanged"></CheckBox>
+                <Label Text="Unread messages only" VerticalOptions="Center" FontSize="Body"></Label>
+                <Button Text="+" FontAttributes="Bold" FontSize="Large" CornerRadius="5" HorizontalOptions="EndAndExpand" WidthRequest="50" BackgroundColor="DodgerBlue" TextColor="White" Clicked="Button_Clicked"></Button>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label  Text="All messages" Padding="5" FontAttributes="Bold" FontSize="Large" VerticalOptions="Center" HorizontalOptions="Center" />
+                <Label Text="{Binding UnreadCount}" BackgroundColor="Red" TextColor="White" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold" Padding="5"></Label>
+            </StackLayout>
+            <StackLayout>
+                
+                <Label IsVisible="{Binding IsBusy}" Text="Loading..." HorizontalOptions="CenterAndExpand"></Label>
+            </StackLayout>
+            <ListView IsVisible="{Binding ReadFilter, Converter={converters:BooleanConverter}}" ItemsSource="{Binding MessageList}" ItemSelected="ListView_ItemSelected" BackgroundColor="White" HorizontalOptions="FillAndExpand" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Padding="10" Orientation="Horizontal">
+                                <StackLayout Orientation="Vertical" Grid.Row="1" Margin="10">
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+
+                                        <Label Text="{Binding Question}"
+									    d:Text="{Binding .}"
+									    LineBreakMode="NoWrap" 
+									    Style="{DynamicResource ListItemTextStyle}" 
+									    FontSize="16" />
+                                        <Label Text="{Binding DateCreated}"
+                                               HorizontalOptions="EndAndExpand"
+									    d:Text="{Binding .}"
+									    LineBreakMode="NoWrap" 
+									    Style="{DynamicResource ListItemTextStyle}" 
+									    FontSize="14" FontAttributes="None"/>
+                                        <!--<Label Text="1" BackgroundColor="red" Padding="5" TextColor="White" VerticalOptions="Center" HorizontalOptions="End" IsVisible="{Binding IsOpened, Converter={converters:BooleanConverter}}"></Label>-->
+
+                                    </StackLayout>
+
+
+                                    </StackLayout>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            <ListView IsVisible="{Binding ReadFilter}" ItemsSource="{Binding UnreadList}" ItemSelected="ListView_ItemSelected" BackgroundColor="White" HorizontalOptions="FillAndExpand" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="10" Orientation="Horizontal">
+                                <StackLayout Orientation="Vertical" Grid.Row="1" Margin="10">
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+
+                                        <Label Text="{Binding Question}"
+									    d:Text="{Binding .}"
+									    LineBreakMode="NoWrap" 
+									    Style="{DynamicResource ListItemTextStyle}" 
+									    FontSize="16" />
+                                        <Label Text="{Binding DateCreated}"
+                                               HorizontalOptions="End"
+									    d:Text="{Binding .}"
+									    LineBreakMode="NoWrap" 
+									    Style="{DynamicResource ListItemTextStyle}" 
+									    FontSize="14" FontAttributes="None"/>
+                                        <!--<Label Text="1" BackgroundColor="red" Padding="5" TextColor="White" VerticalOptions="Center" HorizontalOptions="End" IsVisible="{Binding IsOpened, Converter={converters:BooleanConverter}}"></Label>-->
+
+                                    </StackLayout>
+
+
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
         </StackLayout>
+        
     </ContentPage.Content>
 </ContentPage>

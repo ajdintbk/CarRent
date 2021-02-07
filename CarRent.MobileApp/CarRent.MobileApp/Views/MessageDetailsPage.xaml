@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:converters="clr-namespace:CarRent.MobileApp"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="CarRent.MobileApp.Views.MessageDetailsPage">
+    <ContentPage.Content>
+        <StackLayout Padding="15">
+            <Label Text="{Binding _message.User.Username}"></Label>
+            <Label Text="{Binding _message.DateCreated}"></Label>
+            <BoxView HeightRequest="1" Color="LightGray"/>
+            <Label Text="Question" FontSize="Body" FontAttributes="Bold"></Label>
+            <Editor IsReadOnly="True" Margin="5" Text="{Binding _message.Question}"></Editor>
+            <StackLayout>
+                <Label Text="Answer" FontSize="Body" FontAttributes="Bold"></Label>
+                <Label Text="{Binding Response}" BackgroundColor="LightBlue" Padding="5" TextColor="DodgerBlue" FontSize="Body" HorizontalOptions="StartAndExpand"></Label>
+                <StackLayout IsVisible="{Binding AdminStatus}">
+                    <Editor Margin="5" IsVisible="{Binding Answered, Converter={converters:BooleanConverter}}" Text="{Binding _message.Response}"></Editor>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout IsVisible="{Binding Answered, Converter={converters:BooleanConverter}}">
+                <Button IsVisible="{Binding AdminStatus}" Text="Submit" Command="{Binding SaveMessage}"></Button>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

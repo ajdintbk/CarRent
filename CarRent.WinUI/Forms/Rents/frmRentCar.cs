@@ -59,14 +59,14 @@ namespace CarRent.WinUI.Forms.Rents
                     EndDate = dtpEnd.Value,
                     StartDate = dtpFrom.Value
                 };
-                var rent = await _serviceRentCheck.Get<List<Model.Rent>>(request);
+                var rent = await _serviceRentCheck.CheckAvailibility<List<Model.Rent>>(request);
                 if (rent == null)
                 {
                     lblNextTime.Visible = false;
                     lblAvailableStatus.Visible = true;
                     lblAvailableStatus.ForeColor = Color.Green;
                     lblAvailableStatus.Text = "Available";
-                    var days = (dtpEnd.Value - dtpFrom.Value).Days + 1;
+                    var days = (dtpEnd.Value.Date - dtpFrom.Value.Date).Days;
                     lblTotalPrice.Text = "Total price is " + Math.Round((price * days), 2).ToString() + " BAM";
                     lblTotalPrice.Visible = true;
                     return true;

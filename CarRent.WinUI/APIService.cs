@@ -41,7 +41,28 @@ namespace CarRent.WinUI
             }
 
         }
+        public async Task<T> CheckAvailibility<T>(object search)
+        {
+            try
+            {
+                var query = "";
+                if (search != null)
+                {
+                    query = await search?.ToQueryString();
+                }
 
+                return await $"{Properties.Settings.Default.APIurl}/{_route}?{query}"
+                   .WithBasicAuth(username, password).GetJsonAsync<T>();
+            }
+            catch (FlurlHttpException ex)
+            {
+                if (ex.Call.Response.StatusCode == 401)
+                {
+                    MessageBox.Show("Error", "Request failed", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                }
+                throw;
+            }
+        }
         public async Task<T> GetById<T>(object id)
         {
             try

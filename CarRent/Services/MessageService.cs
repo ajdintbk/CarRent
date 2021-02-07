@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CarRent.Model.Requests.Message;
 using CarRent.WebApi.Database;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -19,6 +20,17 @@ namespace CarRent.WebApi.Services
             var query = _context.Messages.Include(i => i.User).FirstOrDefault(w => w.Id == id);
 
             return _mapper.Map<Model.Message>(query);
+        }
+
+        public override List<Model.Message> Get(MessageSearchRequest search)
+        {
+            var query = _context.Messages.AsQueryable();
+            if(search.UserId > 0)
+            {
+                query = query.Where(x => x.UserId == search.UserId);
+            }
+            query = query.OrderByDescending(x => x.DateCreated);
+            return _mapper.Map<List<Model.Message>>(query.ToList());
         }
     }
 }

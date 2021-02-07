@@ -12,6 +12,7 @@ namespace CarRent.MobileApp
     {
         private string _route = null;
         public static int UserId { get; set; }
+        public static string Role { get; set; }
         public static string username { get; set; }
         public static string password { get; set; }
 
