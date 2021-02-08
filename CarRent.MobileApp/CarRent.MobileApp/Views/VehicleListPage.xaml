@@ -41,17 +41,6 @@
 									FontSize="16" />
 
                                     <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="6">
-                                        <Label Text="Description : "
-										Style="{DynamicResource LargeLabel}" />
-
-                                        <Label Text="{Binding Description}" 
-										d:Text="{Binding .}"
-										LineBreakMode="NoWrap" 
-										Style="{DynamicResource ListItemTextStyle}" 
-										FontSize="15" />
-                                    </StackLayout>
-
-                                    <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="6">
                                         <Label Text="Price per day : "
 										Style="{DynamicResource LargeLabel}" />
 

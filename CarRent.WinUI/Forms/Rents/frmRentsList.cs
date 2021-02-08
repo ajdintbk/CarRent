@@ -17,15 +17,18 @@ namespace CarRent.WinUI.Forms.Rents
         {
             InitializeComponent();
         }
-        private async Task GetData()
+        private async Task GetData(List<Model.Rent> searchList = null)
         {
             if (dgvRents.Columns.Contains("btnView"))
                 dgvRents.Columns.Remove("btnView");
 
             if (dgvRents.Columns.Contains("btnExtend"))
                 dgvRents.Columns.Remove("btnExtend");
-
-            var list = await _serviceRent.Get<List<Model.Rent>>();
+            List<Model.Rent> list;
+            if (searchList == null)
+                list = await _serviceRent.Get<List<Model.Rent>>();
+            else
+                list = searchList;
             var DataGridList = new List<Model.ViewModel.RentListItemVM>();
             foreach (var rent in list)
             {
@@ -104,6 +107,34 @@ namespace CarRent.WinUI.Forms.Rents
                     frmDetails.ShowDialog();
                 }
             }
+        }
+
+        private async void txtBtnSearch_Click(object sender, EventArgs e)
+        {
+            var search = new Model.Requests.Rent.RentSearchRequest();
+            if (dtpEnd.Value.Date < dtpStart.Value.Date)
+            {
+                errorProvider1.SetError(dtpEnd, "End date can not be smaller then start date");
+            }
+            else
+            {
+                errorProvider1.Clear();
+            }
+
+            if (dtpStart.Value.Date < dtpEnd.Value.Date)
+            {
+                search.StartDate = dtpStart.Value.Date;
+                search.EndDate = dtpEnd.Value.Date;
+            }
+            if (!string.IsNullOrWhiteSpace(txtName.Text))
+                search.UserName = txtName.Text;
+            if (!string.IsNullOrWhiteSpace(txtVehicleName.Text))
+                search.VehicleName = txtVehicleName.Text;
+
+            var list = await _serviceRent.Get<List<Model.Rent>>(search);
+            if(list == null || list.Count == 0)
+                MessageBox.Show("No result for that search query.","Status", MessageBoxButtons.OK,MessageBoxIcon.Information);
+            await GetData(list);
         }
     }
 }

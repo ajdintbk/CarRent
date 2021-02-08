@@ -17,7 +17,7 @@ namespace CarRent.MobileApp
         public static string password { get; set; }
 
 #if DEBUG
-        string _apiUrl = "http://localhost:55208/api";
+        string _apiUrl = "http://localhost:51823/api";
 #endif
 #if RELEASE
         string _apiUrl = "https://mywebsite.com/api/";
@@ -62,6 +62,29 @@ namespace CarRent.MobileApp
 
                 return await $"{_apiUrl}/{_route}?{query}"
                    .WithBasicAuth(username, password).GetJsonAsync<T>();
+            }
+            catch (FlurlHttpException ex)
+            {
+                if (ex.Call.Response.StatusCode == 401)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "Request failed", "OK");
+                }
+                throw;
+            }
+        }
+
+        public async Task Login(string username, string password)
+        {
+            try
+            {
+                var request = new Model.Requests.User.UserLoginRequest
+                {
+                    Username = username,
+                    Password = password
+                };
+                var url = $"http://localhost:51823/api/User/Login";
+                await url.PostJsonAsync(request); ;
+                await Application.Current.MainPage.DisplayAlert("Status", "Welcome", "OK");
             }
             catch (FlurlHttpException ex)
             {

@@ -47,9 +47,7 @@
                                         <!--<Label Text="1" BackgroundColor="red" Padding="5" TextColor="White" VerticalOptions="Center" HorizontalOptions="End" IsVisible="{Binding IsOpened, Converter={converters:BooleanConverter}}"></Label>-->
 
                                     </StackLayout>
-
-
-                                    </StackLayout>
+                                </StackLayout>
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>

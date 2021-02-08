@@ -96,7 +96,10 @@ namespace CarRent.WinUI.Forms.User
                 {
                     frmUserDetails frmAdd = new frmUserDetails(result);
                     frmAdd.FormClosed += async delegate {
-                        await GetData();
+                        if (!string.IsNullOrWhiteSpace(txtSearchName.Text))
+                            SearchQuery(txtSearchName.Text);
+                        else
+                            await GetData();
                     };
                     frmAdd.ShowDialog();
                 }
@@ -104,7 +107,7 @@ namespace CarRent.WinUI.Forms.User
             }
         }
 
-        private async void btnSearch_Click(object sender, EventArgs e)
+        private async Task SearchQuery(string searchName)
         {
             if (!string.IsNullOrWhiteSpace(txtSearchName.Text))
             {
@@ -114,7 +117,10 @@ namespace CarRent.WinUI.Forms.User
                 };
                 await GetData(await _userService.Get<List<Model.User>>(request));
             }
-
+        }
+        private async void btnSearch_Click(object sender, EventArgs e)
+        {
+            await SearchQuery(txtSearchName.Text);
         }
 
         private async void txtSearchName_TextChanged(object sender, EventArgs e)

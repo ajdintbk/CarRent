@@ -62,14 +62,7 @@ namespace CarRent.MobileApp.ViewModels
                 foreach (var item in list)
                 {
 
-                    var request = new Model.Requests.User.UserLoginRequest
-                    {
-                        Username = Username,
-                        Password = Password
-                    };
-                    var url = $"http://localhost:55208/api/User/Login";
-                    var response = await url.PostJsonAsync(request);
-
+                    await _service.Login(Username, Password);
                     if (item.Username == Username)
                     {
                         APIService.UserId = item.Id;
@@ -79,7 +72,7 @@ namespace CarRent.MobileApp.ViewModels
                 //await _service.Get<dynamic>(null);
                 Application.Current.MainPage = new MainPage();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "Wrong username or password", "Try again");
             }

@@ -19,7 +19,7 @@ namespace CarRent.MobileApp.ViewModels
         }
         public ObservableCollection<Vehicle> VehicleList { get; set; } = new ObservableCollection<Vehicle>();
         public ObservableCollection<Brand> BrandList { get; set; } = new ObservableCollection<Brand>();
-        
+
 
         Brand _selectedBrand = null;
         public Brand SelectedBrand

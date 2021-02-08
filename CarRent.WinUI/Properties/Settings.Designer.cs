@@ -25,7 +25,7 @@ namespace CarRent.WinUI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:55208/api")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:51823/api")]
         public string APIurl {
             get {
                 return ((string)(this["APIurl"]));

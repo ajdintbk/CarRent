@@ -63,6 +63,7 @@ namespace CarRent.WebApi.Services
             {
                 query = query.Where(w => w.IsActive == true);
             }
+            
 
 
             return _mapper.Map<List<Model.Vehicle>>(query.ToList());
