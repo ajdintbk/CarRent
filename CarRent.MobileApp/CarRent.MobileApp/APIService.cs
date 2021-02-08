@@ -82,7 +82,7 @@ namespace CarRent.MobileApp
                     Username = username,
                     Password = password
                 };
-                var url = $"http://localhost:51823/api/User/Login";
+                var url = $"{_apiUrl}/User/Login";
                 await url.PostJsonAsync(request); ;
                 await Application.Current.MainPage.DisplayAlert("Status", "Welcome", "OK");
             }
